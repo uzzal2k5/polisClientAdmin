@@ -19,10 +19,15 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 ADD polisClientAdmin ./
 RUN npm install
 RUN source ~/.bashrc
-RUN source ~/.profile
+#RUN source ~/.profile
+
+COPY pgsql-client.sh ./
+RUN chmod a+x pgsql-client.sh && sh pgsql-client.sh
+
 #RUN nvm use 6.2.0
 #RUN npm start
 
+EXPOSE 5002
 
 
-#ENTRYPOINT ["polisClientAdmin/x"]
+ENTRYPOINT ["x"]
