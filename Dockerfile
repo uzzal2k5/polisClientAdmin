@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER uzzal, uzzal2k5@gmail.com
 WORKDIR /ClientAdmin
+RUN apt-get update && apt-get install -y curl wget
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # nvm environment variables
 ENV NVM_DIR .nvm
