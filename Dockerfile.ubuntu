@@ -1,8 +1,7 @@
-FROM centos:7
+FROM ubuntu:16.04
 MAINTAINER uzzal, uzzal2k5@gmail.com
 WORKDIR /ClientAdmin
-RUN yum update -y
-RUN yum install -y curl wget
+RUN apt-get update && apt-get install -y curl wget
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # nvm environment variables
 ENV NVM_DIR .nvm
@@ -23,13 +22,14 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 ADD polisClientAdmin ./
 
 # working with package.json
-COPY yarn_centos.sh ./
-RUN chmod a+x yarn_centos.sh && sh  yarn_centos.sh
+RUN apt-get install -y apt-utils
+COPY yarn.sh ./
+RUN chmod a+x yarn.sh && sh  yarn.sh
 RUN ls -la
 #RUN cd ./polisClientAdmin &&
-RUN yarn install --check-files
+# RUN yarn install --check-files
 
-#RUN yarn install --no-lockfile
+RUN yarn install --no-lockfile
 # Install bower
 #RUN cd polisClientAdmin && npm install -g bower d3@3.0.8
 #RUN bower install d3@3.0.8 --config.interactive=false --allow-root
